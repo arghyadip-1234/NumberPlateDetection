@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      /*background-color: #f0f0f0;*/
+      background-image: url('contact.jpg');
+      background-size:cover; 
+    }
+    p{
+        color: #ffffff;
+    }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 100px;
+        display: flex;
+        justify-content: space-between;
+        background: black;
+        align-items: center;
+        z-index: 99;
+    }
+
+    h2 {
+        color: #ffffff;
+        user-select: none;
+    }
+
+    .navigation a {
+        position: relative;
+        font-size: 18px;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 40px;
+
+    }
+
+    .navigation a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 100%;
+        height: 3px;
+        background: #ffffff;
+        border-radius: 5px;
+        transform-origin: right;
+        transform: scaleX(0);
+        transition: transform .5s;
+    }
+
+    .navigation a:hover::after {
+        transform-origin: left;
+        transform: scaleX(1);
+    }
+
+    .a1 {
+        position: relative;
+        width: 320px;
+        height: 150px;
+        background: transparent;
+        border: 3px solid rgba(255, 255, 255, .5);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+        display: marker;
+        justify-content: center;
+        align-items: center;
+    }
+    .contact-card {
+      background-color: #ffffff;
+      /* background: linear-gradient(135deg, #000000, #ffffff); */
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .contact-card h2 {
+      margin-bottom: 10px;
+      color: #333333;
+    }
+
+    .contact-card p {
+      color: #666666;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .contact-card a {
+      display: block;
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-card a:hover {
+      color: #0056b3;
+    }
+
+    /* Add CSS for the hover, transition, and animation effect */
+    .contact-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      transition: transform 0.3s;
+    }
+
+    .contact-card img:hover {
+      transform: scale(1.1);
+    }
+
+    .contact-card .email {
+      display: none;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666666;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .contact-card:hover .email {
+      display: block;
+    }
+
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+  </style>
+</head>
+<body>
+    < <header>
+        
+        <nav class="navigation">
+          <a href="http://127.0.0.1:5000/">Home</a>
+          <a href="about.html">About</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="contact.html">Contact</a>
+      </nav>
+          </header>
+  <div class="contact-card">
+    <img src="logo1.png" alt="Profile Picture">
+    <h2>Plate.rec</h2>
+    <p>Automatic Number Plate Recognition</p>
+    <a href="mailto:cardeccreo@gmail.com">cardeccreo@gmail.com</a>
+    <p class="email">Click to reveal email</p>
+  </div>
+</body>
+</html>

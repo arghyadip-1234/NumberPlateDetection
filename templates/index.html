@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Plate Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <link rel="stylesheet" href="F:\automated py\Automatic Number Plate Text Ectractor -Innovate 2024\templates\style.css"> -->
+    <!-- <link rel="stylesheet" href="F:\automated py\Automatic Number Plate Text Ectractor -Innovate 2024\static\newstyle.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles1.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles2.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+           <li class="logo">
+            <div class="logo1">
+              <!-- Replace 'Your Logo' with your logo or text -->
+              <!-- Your Logo -->
+              <h4 style="color: white;" class="logo"><img src= "{{ url_for('static', filename='logo.gif') }}" width="60" height="60" >Plate.rec</h4>
+            </div>
+           </li>
+           <li class="btn"><span class="fas fa-bars"></span></li>
+           <div class="items">
+            
+              <li><a href="">Home</a></li>
+              <li><a href="{{ url_for('static', filename='about.html') }}">About</a></li>
+              <li><a href="{{ url_for('static', filename='documentation.html') }}">Documentation</a></li>
+              <li><a href="{{ url_for('static', filename='contact.html') }}">Contact</a></li>
+           </div>
+           <!-- <li class="search-icon">
+              <input type="search" placeholder="Search">
+              <label class="icon">
+              <span class="fas fa-search"></span>
+              </label>
+           </li> -->
+        </ul>
+     </nav>
+
+    
+    <div></div>
+  <section id="video-container" style="margin-top: -2px; height: 100%; width: 100%; justify-content: center;">
+    <video autoplay loop muted>
+      <!-- Replace 'path_to_your_video.mp4' with the path to your video file -->
+      <!-- <source src="{{ url_for('static', filename='video1.mp4') }}" type="video/mp4"> -->
+      <source src="{{ url_for('static', filename='video3.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+  <div class="container">
+    <h1>License Plate Detection</h1>
+    <form method="POST" enctype="multipart/form-data" id="upload-form">
+        <input type="file" name="image" id="upload" accept="image/*" style="display: none;">
+        <label for="upload" class="custom-file-upload">Choose Image</label>
+        <span id="file-chosen">No file chosen</span>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="image-preview-container" style="display: none;">
+        <h2>Selected Image:</h2>
+        <img id="image-preview" src="" alt="Selected Image">
+    </div>
+</div>
+  <div id="blank"></div>
+  <section class="effect">
+    <div class="typing-effect">
+      <p id="typing-text">
+        ANPR!
+        Recognizing a Car License Plate is a very important task for a camera surveillance-based security system. We can
+        extract the license plate from an image using some computer vision techniques and then we can use Optical
+        Character Recognition to recognize the license number.
+      </p>
+    </div>
+    <div id="animated">
+      
+        <div class="loop-wrapper">
+          <div class="mountain"></div>
+          <div class="hill"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="rock"></div>
+          <div class="truck"></div>
+          <div class="wheels"></div>
+        </div> 
+      </div>
+  </section>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  
+  {% block body %}
+    
+    
+  {% endblock  %}
+  
+  <h4><br></h4>
+  <div class="process">
+    <h2>Methodology:</h2>
+    To reduce the noise we need to blur the input Image with Gaussian Blur and then convert it to grayscale.
+    <img class="methology" src="{{ url_for('static', filename='methologyblack.jpg') }}" alt="image1.jpg">
+    <br>
+    Find vertical edges in the image.
+    <br>
+    <img class="methology" src="{{ url_for('static', filename='edge1.jpg') }}" alt="image1.jpg">
+    <br>
+    To reveal the plate we have to binarize the image. For this apply Otsu’s Thresholding on the vertical edge image. In
+    other thresholding methods, we have to choose a threshold value to binarize the image but Otsu’s Thresholding
+    determines the value automatically.
+    <br>
+    <img class="methology" src="{{ url_for('static', filename='edge2.jpg') }}" alt="image1.jpg">
+    <br>
+    Apply Closing Morphological Transformation on the thresholded image. Closing is useful to fill small black regions
+    between white regions in a thresholded image. It reveals the rectangular white box of license plates.
+    <br>
+    <img class="methology" src="{{ url_for('static', filename='edge3.jpg') }}" alt="image1.jpg">
+    <br>
+    To detect the plate we need to find contours in the image. It is important to binarize and morph the image before
+    finding contours so that it can find a more relevant and less number of contours in the image. If you draw all the
+    extracted contours on the original image, it would look like this:
+    <br>
+    <img class="methology" src="{{ url_for('static', filename='detected-image.jpg') }}" alt="image1.jpg">
+    <br>
+    Now find the minimum area rectangle enclosed by each of the contours and validate their side ratios and area. We
+    have defined the minimum and maximum area of the plate as 4500 and 30000 respectively.
+    <br>
+    Now find the contours in the validated region and validate the side ratios and area of the bounding rectangle of the
+    largest contour in that region. After validating you will get a perfect contour of a license plate. Now extract that
+    contour from the original image. You will get the image of the plate:
+
+    This step is performed by clean_plate and ratioCheck method of class PlateFinder.
+    <br>
+    <br>
+    <img class="methology1" src="{{ url_for('static', filename='license_plate.jpg') }}" alt="image1.jpg">
+    <br>
+    To recognize the characters on the license plate precisely, we have to apply image segmentation. The first step is
+    to extract the value channel from the HSV format of the plate’s image.
+    Now apply adaptive thresholding on the plate’s value channel image to binarize it and reveal the characters. The
+    image of the plate can have different lighting conditions in different areas, in that case, adaptive thresholding
+    can be more suitable to binarize because it uses different threshold values for different regions based on the
+    brightness of the pixels in the region around it.
+    <br><br>
+    After binarizing apply bitwise not operation on the image to find the connected components in the image so that we
+    can extract character candidates.
+    <br><br>
+    Construct a mask to display all the character components and then find contours in the mask. After extracting the
+    contours take the largest one, find its bounding rectangle and validate side ratios.
+    <br><br>
+    After validating the side ratios find the convex hull of the contour and draw it on the character candidate mask.
+    <br><br>
+    Now find all the contours in the character candidate mask and extract those contour areas from the plate’s value
+    thresholded image, you will get all the characters separately.
+    <br>
+    <img class="methology1" src="{{ url_for('static', filename='license_plate_edited.jpg') }}" alt="image1.jpg">
+    <br>
+  </div>
+  <h2><br></h2>
+  <div>
+    <h1 class="link-heading">Click Here For Link of Codes and Files Used in This Project</h1>
+    <a class="google-drive-link" href="https://drive.google.com/drive/folders/1gWZBkpX6DTQhqFjio2jl-oljTW6VyOmP?usp=drive_link" target="_blank">
+        Google Drive Folder
+    </a>
+</div>
+  <!-- <h4 id="link"><a href="#">Click Here For Link of codes and files used in this Project</a></h4> -->
+  <h2><br></h2>
+  <div class="slider-container">
+    <div class="slider">
+      <img src= "{{ url_for('static', filename='image1.jpg') }}">
+      <img src= "{{ url_for('static', filename='image2.jpg') }}">
+      <img src= "{{ url_for('static', filename='image3.jpg') }}">
+      <img src= "{{ url_for('static', filename='image4.jpg') }}">
+      <img src= "{{ url_for('static', filename='image5.jpg') }}">
+      <img src= "{{ url_for('static', filename='image6.jpg') }}">
+      <img src= "{{ url_for('static', filename='image7.jpg') }}">
+      <img src= "{{ url_for('static', filename='image8.jpg') }}">
+      
+      <!-- Add more images as needed -->
+      <script src="{{ url_for('static', filename='script1.js') }}"></script>
+    </div>
+    <h2><br></h2>
+  <footer>
+    <ul class="page-links">
+        <li>
+            <a href="http://127.0.0.1:5000/">Home</a>
+
+        </li>
+        <li></li>
+        <li>
+            <a href="{{ url_for('static', filename='about.html') }}">About</a>
+
+        </li>
+        <li></li>
+        <li>
+            <a href="{{ url_for('static', filename='documentation.html') }}">Documentation</a>
+
+        </li><li></li>
+        <li>
+            <a href="{{ url_for('static', filename='contact.html') }}">Contact</a>
+        </li>
+    </ul>
+    <ul class="social-icons">
+      <!-- Replace the "#" with your social media profile URLs -->
+      <li><a href="https://www.facebook.com/profile.php?id=100095539683352"><img src="{{ url_for('static', filename='facebook.png') }}" alt="Facebook" /></a></li>
+      <li><a href="https://www.instagram.com/plate.rec/"><img src="{{ url_for('static', filename='instagram.png') }}" alt="Instagram" /></a></li>
+      <li><a href="https://twitter.com/Plate_Rec"><img src="{{ url_for('static', filename='twitter.png') }}" alt="Twitter" /></a></li>
+      <li><a href="https://web.whatsapp.com/"><img src="{{ url_for('static', filename='whatsapp.png') }}" alt="WhatsApp" /></a></li>
+    </ul>
+  </footer>
+    <script>
+        document.getElementById('upload').onchange = function () {
+            document.getElementById('file-chosen').textContent = this.files[0].name;
+            document.getElementById('image-preview-container').style.display = 'block';
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('image-preview').src = e.target.result;
+            }
+            reader.readAsDataURL(this.files[0]);
+        };
+
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            if (!document.getElementById('upload').value) {
+                alert('Please choose an image.');
+                event.preventDefault();
+            }
+        });
+        $('nav ul li.btn span').click(function(){
+          $('nav ul div.items').toggleClass("show");
+          $('nav ul li.btn span').toggleClass("show");
+        });
+    </script>
+</body>
+</html>

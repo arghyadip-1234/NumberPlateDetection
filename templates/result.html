@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <link rel="stylesheet" href="F:\automated py\Automatic Number Plate Text Ectractor -Innovate 2024\templates\style.css"> -->
+</head>
+<body>
+    <div class="container">
+        <h1>Result</h1>
+        <p>{{ result_text }}</p>
+        <img src="{{ url_for('static', filename='result.jpg') }}" alt="Result Image">
+    </div>
+</body>
+</html>
